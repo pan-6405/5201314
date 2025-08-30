@@ -1,9 +1,10 @@
 name: Self-Healing Proxy System
 
 on:
-  schedule:
-    - cron: '0 6 * * *'  # 每天早上 6 点运行
   workflow_dispatch:
+  push:
+    branches:
+      - main
 
 jobs:
   run-selfheal:
@@ -21,17 +22,11 @@ jobs:
       - name: Install dependencies
         run: pip install -r requirements.txt
 
-      - name: Run node grabber
-        run: python nodes_grabber.py
-
-      - name: Run live checker
-        run: python live_checker.py
+      - name: Run IO checker
+        run: python io_checker.py
 
       - name: Update memory pool
         run: python update_memory_pool.py
-
-      - name: Inject strategy groups
-        run: python injector.py
 
       - name: Generate final config
         run: python generate_config.py
