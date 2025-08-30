@@ -8,6 +8,8 @@ on:
 
 jobs:
   run-selfheal:
+    permissions:
+      contents: write
     runs-on: ubuntu-latest
 
     steps:
